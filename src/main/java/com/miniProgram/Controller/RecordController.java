@@ -36,7 +36,7 @@ public class RecordController {
     @PostMapping("/login/{openId}")
     public String login(@PathVariable String openId){
         if ("undefined".equals(openId) || "Undefined".equals(openId)){
-            log.info("===> openId获取错误");
+            log.info("===> openId获取错误 当前值===> {}",openId);
             return "获取openId失败！";
         }
         log.info("===> openId ===> {}",openId);

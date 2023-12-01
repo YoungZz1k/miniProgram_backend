@@ -25,11 +25,11 @@ public class MapServiceImpl extends ServiceImpl<MapMapper, Map> implements MapSe
     @Override
     public String saveMap(SaveMapVO map) {
         if (map == null){
-            log.info("===> map为空");
+            log.info("===> map为空 当前值===> {}",map);
             return "添加失败";
         }
         if (StringUtils.isBlank(map.getId()) || "Undefined".equals(map.getId()) || "undefined".equals(map.getId())){
-            log.info("===> openId获取错误");
+            log.info("===> openId获取错误  当前值===> {}",map.getId());
             return "请先登录";
         }
         // VO转DO
@@ -50,7 +50,7 @@ public class MapServiceImpl extends ServiceImpl<MapMapper, Map> implements MapSe
     @Override
     public List<Map> getMapById(String id) {
         if (StringUtils.isBlank(id) || "undefined".equals(id)){
-            log.info("===> openId获取错误");
+            log.info("===> openId获取错误  当前值===> {}",id);
             return null;
         }
 
