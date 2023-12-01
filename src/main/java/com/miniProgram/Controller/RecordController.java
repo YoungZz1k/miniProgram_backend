@@ -29,16 +29,17 @@ public class RecordController {
         LambdaQueryWrapper<Records> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Records::getId,openId);
         List<Records> list = recordService.list(queryWrapper);
-        log.debug(list.toString());
+        log.info(list.toString());
         return list;
     }
 
     @PostMapping("/login/{openId}")
     public String login(@PathVariable String openId){
         if ("undefined".equals(openId) || "Undefined".equals(openId)){
+            log.info("===> openId获取错误");
             return "获取openId失败！";
         }
-        log.debug("openId ===> {}",openId);
+        log.info("===> openId ===> {}",openId);
         return "获取openId成功！";
     }
 
@@ -67,7 +68,7 @@ public class RecordController {
                     updateWrapper.eq(Records::getId,records.getId());
                     updateWrapper.eq(Records::getLevel,records.getLevel());
                     recordService.update(firstRecord,updateWrapper);
-                    log.debug("更新记录成功");
+                    log.info("===> 更新记录成功");
                     return;
                 }
                 //如果查出来的记录步数与新的记录步数相同 比较时间长短
@@ -83,7 +84,7 @@ public class RecordController {
                         //更新时间
                         firstRecord.setNowTime(records.getNowTime());
                         recordService.update(firstRecord,updateWrapper);
-                        log.debug("更新记录成功");
+                        log.info("===> 更新记录成功");
                         return;
                     }
                 }
@@ -91,7 +92,7 @@ public class RecordController {
             if(firstRecord == null){
                 //此记录未保存
                 recordService.saveRecord(records);
-                log.debug("保存记录成功");
+                log.info("===> 保存记录成功");
             }
         }
     }

@@ -25,9 +25,11 @@ public class MapServiceImpl extends ServiceImpl<MapMapper, Map> implements MapSe
     @Override
     public String saveMap(SaveMapVO map) {
         if (map == null){
+            log.info("===> map为空");
             return "添加失败";
         }
         if (StringUtils.isBlank(map.getId()) || "Undefined".equals(map.getId()) || "undefined".equals(map.getId())){
+            log.info("===> openId获取错误");
             return "请先登录";
         }
         // VO转DO
@@ -40,7 +42,7 @@ public class MapServiceImpl extends ServiceImpl<MapMapper, Map> implements MapSe
 
         boolean save = save(mapDO);
 
-        log.debug("添加地图成功！ ===>  {}",mapDO.toString());
+        log.info("===> 添加地图成功！ ===>  {}",mapDO.toString());
 
         return save ? "添加地图成功！":"添加地图失败!";
     }
@@ -48,6 +50,7 @@ public class MapServiceImpl extends ServiceImpl<MapMapper, Map> implements MapSe
     @Override
     public List<Map> getMapById(String id) {
         if (StringUtils.isBlank(id) || "undefined".equals(id)){
+            log.info("===> openId获取错误");
             return null;
         }
 
@@ -55,10 +58,11 @@ public class MapServiceImpl extends ServiceImpl<MapMapper, Map> implements MapSe
         List<Map> maps = query().eq("open_id", id).list();
 
         if (maps.size() == 0 || maps == null){
+            log.info("===> 数据库中无地图数据");
             return null;
         }
 
-        log.debug("mapdata ===> {}",maps.toString());
+        log.info("===> mapData ===> {}",maps.toString());
 
         return maps;
     }
