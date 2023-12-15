@@ -9,14 +9,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
-@Data
 @Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("map")
-public class Map {
+@TableName("map_liked_rel")
+public class LikedRel {
 
     @TableId(type = IdType.AUTO)
     private Integer id;
@@ -24,16 +22,9 @@ public class Map {
     @TableField("open_id")
     private String openId;
 
-    @TableField("map_name")
-    private String mapName;
+    @TableField("map_id")
+    private Integer mapId;
 
-    @TableField("map_data")
-    private String mapData;
-
-    @TableField("create_time")
-    private LocalDateTime createTime;
-
-    @TableField("likes")
-    private Integer likes;
-
+    @TableField("status")
+    private Integer status;
 }

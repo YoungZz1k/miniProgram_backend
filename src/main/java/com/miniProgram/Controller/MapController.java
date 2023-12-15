@@ -2,6 +2,7 @@ package com.miniProgram.Controller;
 
 import com.miniProgram.Service.MapService;
 import com.miniProgram.entity.Map;
+import com.miniProgram.entity.vo.LikeMapVO;
 import com.miniProgram.entity.vo.SaveMapVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,5 +24,15 @@ public class MapController {
     @PostMapping("/map")
     public List<Map> getMapById(@RequestParam String id){
         return mapService.getMapById(id);
+    }
+
+    @PostMapping("/deleteMapById")
+    public String deleteMapById(@RequestParam String id){
+        return mapService.deleteMapById(id);
+    }
+
+    @PostMapping("/isLiked")
+    public String isLiked(@RequestBody LikeMapVO mapVO){
+        return mapService.isLiked(mapVO);
     }
 }
