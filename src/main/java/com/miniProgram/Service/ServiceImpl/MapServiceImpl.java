@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.miniProgram.Service.MapService;
 import com.miniProgram.Service.RecordService;
+import com.miniProgram.common.ApiOperationLog;
 import com.miniProgram.entity.LikedRel;
 import com.miniProgram.entity.Map;
 import com.miniProgram.entity.Records;
@@ -31,6 +32,7 @@ public class MapServiceImpl extends ServiceImpl<MapMapper, Map> implements MapSe
     private LikedMapper likedMapper;
 
     @Override
+    @ApiOperationLog(description = "保存新地图")
     public String saveMap(SaveMapVO map) {
         if (map == null) {
             log.info("===> map为空 当前值===> {}", map);
@@ -51,12 +53,11 @@ public class MapServiceImpl extends ServiceImpl<MapMapper, Map> implements MapSe
 
         boolean save = save(mapDO);
 
-        log.info("===> 添加地图成功！ ===>  {}", mapDO.toString());
-
         return save ? "添加地图成功！" : "添加地图失败!";
     }
 
     @Override
+    @ApiOperationLog(description = "根据用户openId获取所创作的地图信息")
     public List<Map> getMapById(String id) {
         if (StringUtils.isBlank(id) || "undefined".equals(id)) {
             log.info("===> openId获取错误  当前值===> {}", id);
@@ -73,13 +74,12 @@ public class MapServiceImpl extends ServiceImpl<MapMapper, Map> implements MapSe
             return null;
         }
 
-        log.info("===> mapData ===> {}", maps.toString());
-
         return maps;
     }
 
 
     @Override
+    @ApiOperationLog(description = "根据地图id删除地图")
     public String deleteMapById(String id) {
         // 根据id删除地图
         int i = mapMapper.deleteById(id);
@@ -100,6 +100,7 @@ public class MapServiceImpl extends ServiceImpl<MapMapper, Map> implements MapSe
      * @return
      */
     @Override
+    @ApiOperationLog(description = "对地图进行点赞/取消点赞")
     @Transactional
     public String isLiked(LikeMapVO map) {
         if (map == null) {
