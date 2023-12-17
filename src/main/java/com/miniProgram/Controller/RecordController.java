@@ -2,6 +2,7 @@ package com.miniProgram.Controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.miniProgram.Service.RecordService;
+import com.miniProgram.common.ApiOperationLog;
 import com.miniProgram.entity.Records;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class RecordController {
      * @return list 返回所有记录集合
      */
     @GetMapping()
+    @ApiOperationLog(description = " 根据openId获取所有记录信息")
     public List<Records> getAll(@RequestParam String openId){
         LambdaQueryWrapper<Records> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Records::getId,openId);
@@ -48,6 +50,7 @@ public class RecordController {
      * @param records 前端发送的记录数据
      */
     @CrossOrigin(origins = "*")
+    @ApiOperationLog(description = "更新或新增记录")
     @PostMapping
     public void save(@RequestBody Records records){
         LambdaQueryWrapper<Records> queryWrapper = new LambdaQueryWrapper<>();
